@@ -11,10 +11,12 @@ var nTimes int
 func init() {
 	flag.IntVar(&nTimes, "n", 1, "number of times the message needs to be displayed")
 }
+
 // A banner command that will display a message an x number of times
 // message - string
 // times - int
-func main() {
+// Cmd main commmandline
+func Cmd() {
 
 	var msg = flag.String("m", "", "the message that needs to be printed")
 	var dbg = flag.Bool("d", false, "to debug or not")
