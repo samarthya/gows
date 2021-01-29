@@ -13,7 +13,7 @@ var fileName string
 func init() {
 	flag.StringVar(&fileName, "f", "", "File to read")
 	flag.Parse()
-	fmt.Println(" Init: fileName: " + fileName)
+	// fmt.Println(" Init: fileName: " + fileName)
 }
 
 const (
@@ -25,7 +25,7 @@ const (
 func Cmd() {
 	// https://golang.org/pkg/flag/#NArg
 	// NArg is the number of arguments remaining after flags have been processed.
-	fmt.Fprintf(os.Stdout, "DBG: %d %s\n", flag.NArg(), fileName)
+	// fmt.Fprintf(os.Stdout, "DBG: %d %s\n", flag.NArg(), fileName)
 
 	if flag.NFlag() == 0 {
 		fmt.Fprintf(os.Stderr, "%s", InvalidArgument)
