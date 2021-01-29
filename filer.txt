@@ -1,0 +1,3 @@
+I am a sample file.
+I have a new line.
+I even have an int 10.
