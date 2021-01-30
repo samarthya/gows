@@ -1,6 +1,7 @@
 package enc
 
 import (
+	"cnst"
 	"encoding/gob"
 	"flag"
 	"fmt"
@@ -8,15 +9,6 @@ import (
 	"os"
 )
 
-// Blog blog structure
-type Blog struct {
-	Title, Author, Category string
-	Length                  int
-}
-
-func (b *Blog) String() string {
-	return fmt.Sprintf(" Blog: %s @ %s\n Category: %s\n Length: %d", b.Title, b.Author, b.Category, b.Length)
-}
 
 var fileName string
 var logger = log.New(os.Stdout, " ENC: ", log.LUTC)
@@ -31,7 +23,7 @@ const (
 	ErrorMessage = "need a file to write or read the contents."
 )
 
-var defBlog = Blog{Title: "My first blog", Author: "Saurabh Sharma", Category: "technical", Length: 200}
+var defBlog = cnst.Blog{Title: "My first blog", Author: "Saurabh Sharma", Category: "technical", Length: 200}
 
 // Cmd main entry method
 func Cmd() {
@@ -57,7 +49,7 @@ func Cmd() {
 	}
 
 	dec := gob.NewDecoder(f)
-	var blogR Blog
+	var blogR cnst.Blog
 
 	f.Seek(0,0)
 	err = dec.Decode(&blogR)
