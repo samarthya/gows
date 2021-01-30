@@ -3,6 +3,7 @@ package dts
 import (
 	"cnst"
 	"encoding/json"
+	"encoding/xml"
 	"flag"
 	"fmt"
 	"log"
@@ -21,6 +22,30 @@ func init() {
 	flag.Parse()
 }
 
+func encodeJSON(b *cnst.Blog, f *os.File) (err error) {
+	enc := json.NewEncoder(f)
+	err = enc.Encode(b)
+	return
+}
+
+func encodeXML(b *cnst.Blog, f *os.File) (err error) {
+	enc := xml.NewEncoder(f)
+	err = enc.Encode(b)
+	return
+}
+
+func decodeJSON(b *cnst.Blog, f *os.File) (err error) {
+	dec := json.NewDecoder(f)
+	err = dec.Decode(b)
+	return
+}
+
+func decodeXML(b *cnst.Blog, f *os.File) (err error) {
+	dec := xml.NewDecoder(f)
+	err = dec.Decode(b)
+	return
+}
+
 // Cmd entry point
 func Cmd() {
 	if flag.NFlag() == 0 {
@@ -36,8 +61,8 @@ func Cmd() {
 		logger.Fatalf("%s", err.Error())
 		os.Exit(1)
 	}
-	enc := json.NewEncoder(f)
-	err = enc.Encode(cnst.DummyBlog)
+
+	err = encodeJSON(&cnst.DummyBlog, f)
 	if err != nil {
 		logger.Fatalf("%s", err.Error())
 		os.Exit(1)
@@ -45,9 +70,9 @@ func Cmd() {
 
 	// Set the pointer to start
 	f.Seek(0, 0)
-	dec := json.NewDecoder(f)
+
 	var myBlog cnst.Blog
-	err = dec.Decode(&myBlog)
+	err = decodeJSON(&myBlog, f)
 
 	if err != nil {
 		logger.Fatalf("%s", err.Error())
@@ -55,5 +80,28 @@ func Cmd() {
 	}
 
 	fmt.Printf(" Read: %s\n", myBlog.String())
+
+	// Clear the contents
+	f.Truncate(0)
+	f.Seek(0, 0)
+
+	err = encodeXML(&cnst.DummyBlog, f)
+	if err != nil {
+		logger.Fatalf("%s", err.Error())
+		os.Exit(1)
+	}
+
+	// Set the pointer to start
+	f.Seek(0, 0)
+
+	var xmlBlog cnst.Blog
+	err = decodeXML(&xmlBlog, f)
+
+	if err != nil {
+		logger.Fatalf("%s", err.Error())
+		os.Exit(1)
+	}
+
+	fmt.Printf(" Read: %s\n", xmlBlog.String())
 	fmt.Println(" --- End Program -- ")
 }

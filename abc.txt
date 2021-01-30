@@ -1,1 +1,1 @@
-{"title":"My first blog","author":"Saurabh Sharma","cat":"technical","size":200}
+<Blog><Title>My first blog</Title><Author>Saurabh Sharma</Author><Category>technical</Category><Length>200</Length></Blog>
