@@ -9,7 +9,6 @@ import (
 	"os"
 )
 
-
 var fileName string
 var logger = log.New(os.Stdout, " ENC: ", log.LUTC)
 
@@ -51,7 +50,7 @@ func Cmd() {
 	dec := gob.NewDecoder(f)
 	var blogR cnst.Blog
 
-	f.Seek(0,0)
+	f.Seek(0, 0)
 	err = dec.Decode(&blogR)
 	if err != nil {
 		logger.Fatalf("%s", err.Error())

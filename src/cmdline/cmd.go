@@ -1,5 +1,9 @@
 package cmd
 
+// A banner command that will display a message an x number of times
+// message - string
+// times - int
+
 import (
 	"flag"
 	"fmt"
@@ -12,9 +16,6 @@ func init() {
 	flag.IntVar(&nTimes, "n", 1, "number of times the message needs to be displayed")
 }
 
-// A banner command that will display a message an x number of times
-// message - string
-// times - int
 // Cmd main commmandline
 func Cmd() {
 
@@ -39,6 +40,7 @@ func Cmd() {
 		}
 
 		fmt.Println("\n--- Command line Program ---")
+
 		for i := nTimes; i > 0; i-- {
 			fmt.Fprintf(os.Stdout, "\n >> %s\n", *msg)
 		}
