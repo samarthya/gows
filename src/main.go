@@ -1,9 +1,12 @@
 package main
 
-import "dts"
+import (
+	"cry"
+)
 
 func main() {
 	// br.Cmd()
 	//enc.Cmd()
-	dts.Cmd()
+	// dts.Cmd()
+	cry.Cmd()
 }
