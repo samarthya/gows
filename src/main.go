@@ -1,9 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
+	"os"
+	"runtime/pprof"
 	"time"
-	"mos"
 )
 
 func throwPanic() {
@@ -44,10 +47,38 @@ func dirtyPanic() {
 }
 
 func main() {
+	var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+
+	flag.Parse()
+	if *cpuprofile != "" {
+		f, err := os.Create(*cpuprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer f.Close()
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
+
+	fmt.Println(" Startng the CMD....")
 	// br.Cmd()
 	// enc.Cmd()
 	// dts.Cmd()
 	// cry.Cmd()
 	// dirtyPanic()
-	mos.Cmd()
+	// mos.Cmd()
+	// idea.Cmd()
+	fmt.Println(f(4, 2))
+	fmt.Println(f(7, 0))
+	os.Exit(0)
+}
+
+func f(x, y int) (z int) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+			z = 0
+		}
+	}()
+	return x / y
 }

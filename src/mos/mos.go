@@ -36,6 +36,4 @@ func Cmd() {
 	}
 
 	fmt.Printf("The process id is %d\n[%v]\n", pid.Pid, pid)
-
-	os.Exit(0)
 }
